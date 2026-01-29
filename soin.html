@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Carte des soins du Studio S Academy à Rochefort : Head Spa Japonais, Soins Visage K-Beauty, Onglerie et Tatouage Fine Line.">
+    <title>Nos Soins & Prestations | Studio S Academy Rochefort</title>
+
+    <!-- Polices -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Lato:wght@300;400;700&family=Mrs+Saint+Delafield&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* --- REPRISE DU CSS GLOBAL --- */
+        :root {
+            --color-bordeaux: #5C2A35;
+            --color-gold: #C9A86C;
+            --color-cream: #F5F0E8;
+            --color-white: #FFFFFF;
+            --color-text: #2c2c2c;
+
+            --font-heading: 'Cormorant Garamond', serif;
+            --font-body: 'Lato', sans-serif;
+            --font-signature: 'Mrs Saint Delafield', cursive;
+
+            --spacing-section: 80px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--color-text);
+            background-color: var(--color-white);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s ease;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Typo */
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: var(--color-bordeaux);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: #4a4a4a;
+        }
+
+        /* UI Elements */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            font-family: var(--font-body);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            border: 1px solid var(--color-bordeaux);
+            background-color: transparent;
+            color: var(--color-bordeaux);
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--color-bordeaux);
+            color: var(--color-white);
+        }
+
+        /* Navigation */
+        .main-nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+            padding: 15px 5%;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            color: var(--color-bordeaux);
+            font-weight: 700;
+        }
+
+        .logo span {
+            color: var(--color-gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: var(--color-bordeaux);
+            position: relative;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0%;
+            height: 1px;
+            background-color: var(--color-gold);
+            transition: 0.3s;
+        }
+
+        .nav-cta {
+            background-color: var(--color-bordeaux);
+            color: white !important;
+            padding: 10px 20px;
+        }
+
+        .nav-cta:hover {
+            background-color: var(--color-gold);
+        }
+
+        /* --- PAGE SPECIFIC STYLES --- */
+
+        /* Hero */
+        .page-header {
+            background-color: var(--color-cream);
+            padding: 180px 5% 80px;
+            text-align: center;
+        }
+
+        .subtitle {
+            font-family: var(--font-body);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--color-gold);
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        /* Intro Text */
+        .intro-section {
+            padding: 60px 5%;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .intro-lead {
+            font-size: 1.2rem;
+            font-style: italic;
+            font-family: var(--font-heading);
+            color: var(--color-text);
+        }
+
+        /* Zig-Zag Service Layout */
+        .service-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0;
+            /* No margin because we alternate bg colors if needed, but here simple white is clean */
+        }
+
+        .service-row:nth-child(even) {
+            flex-direction: row-reverse;
+            background-color: #faf8f5;
+            /* Very light cream alternate */
+        }
+
+        .service-image {
+            flex: 1;
+            height: 600px;
+        }
+
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .service-content {
+            flex: 1;
+            padding: 80px 8%;
+        }
+
+        .service-number {
+            font-family: var(--font-heading);
+            font-size: 4rem;
+            color: rgba(201, 168, 108, 0.2);
+            /* Gold very transparent */
+            line-height: 1;
+            margin-bottom: -20px;
+            margin-left: -5px;
+        }
+
+        .service-content h3 {
+            font-size: 2.5rem;
+            color: var(--color-bordeaux);
+            margin-bottom: 20px;
+        }
+
+        .service-features {
+            margin: 20px 0 30px;
+        }
+
+        .service-features li {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .service-features li::before {
+            content: '•';
+            color: var(--color-gold);
+            margin-right: 10px;
+            font-size: 1.5rem;
+            line-height: 0;
+        }
+
+        /* Diagnostic Banner */
+        .diagnostic-banner {
+            background-color: var(--color-bordeaux);
+            color: var(--color-cream);
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .diagnostic-banner h3 {
+            color: var(--color-white);
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+
+        .btn-gold {
+            background-color: var(--color-gold);
+            color: var(--color-white);
+            border: none;
+            padding: 15px 40px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-gold:hover {
+            background-color: #b59253;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #4a212a;
+            color: var(--color-cream);
+            padding: 60px 5% 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 50px;
+        }
+
+        .footer-col h4 {
+            color: var(--color-gold);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col a {
+            color: var(--color-cream);
+            opacity: 0.8;
+        }
+
+        .footer-col a:hover {
+            color: var(--color-gold);
+            opacity: 1;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+
+            .service-row,
+            .service-row:nth-child(even) {
+                flex-direction: column;
+            }
+
+            .service-image {
+                width: 100%;
+                height: 400px;
+            }
+
+            .service-content {
+                padding: 50px 5%;
+                text-align: center;
+            }
+
+            .service-features li {
+                justify-content: center;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header Navigation -->
+    <header class="main-nav">
+        <nav>
+            <div class="logo">STUDIO S <span>ACADEMY</span></div>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="l-institut.html">L'Institut</a></li>
+                <li><a href="soin.html" style="font-weight: 700;">Soins</a></li>
+                <li><a href="index.html#academy">Academy</a></li>
+                <li><a href="https://naow.app/estheticien-ne-soins-visage/rochefort/sandra.studiosacademy" class="nav-cta" target="_blank">Réserver</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="subtitle">Expérience & Résultats</div>
+        <h1>Carte des Soins</h1>
+    </header>
+
+    <!-- Intro -->
+    <section class="intro-section">
+        <p class="intro-lead">
+            "Chaque soin est une rencontre entre une expertise technique pointue et une recherche absolue de bien-être.
+            Nous ne traitons pas seulement votre peau, nous prenons soin de vous."
+        </p>
+        <p style="margin-top: 20px; font-size: 0.95rem;">
+            <a href="l-institut.html" style="color: var(--color-gold);">Découvrez l'histoire de Sandra Léon</a>, fondatrice du Studio S Academy depuis 2009.
+        </p>
+    </section>
+
+    <!-- Service 1: Head Spa -->
+    <section class="service-row">
+        <div class="service-image">
+            <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
+                alt="Head Spa Japonais">
+        </div>
+        <div class="service-content">
+            <div class="service-number">01</div>
+            <h3>Head Spa Japonais</h3>
+            <p>Une expérience sensorielle unique dédiée à la santé de votre cuir chevelu et à votre relaxation mentale.
+                Ce rituel, issu des traditions japonaises, combine massages, nettoyage profond et aromathérapie.</p>
+            <ul class="service-features">
+                <li>Détente profonde & Anti-stress</li>
+                <li>Détoxification du cuir chevelu</li>
+                <li>Stimulation de la pousse du cheveu</li>
+                <li>Massage crânien shiatsu</li>
+            </ul>
+            <a href="https://naow.app/estheticien-ne-soins-visage/service/groupon-head-spa-decouverte/rochefort/sandra.studiosacademy" class="btn" target="_blank">Voir les Rituels</a>
+        </div>
+    </section>
+
+    <!-- Service 2: K-Beauty -->
+    <section class="service-row">
+        <div class="service-image">
+            <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
+                alt="Soins Visage Coréen">
+        </div>
+        <div class="service-content">
+            <div class="service-number">02</div>
+            <h3>Expertise K-Beauty</h3>
+            <p>Le secret des peaux de verre ("Glass Skin") coréennes arrive à Rochefort. Nous utilisons des protocoles
+                de haute technologie combinés à des actifs puissants pour transformer visiblement la texture de votre
+                peau.</p>
+            <ul class="service-features">
+                <li>Diagnostic de peau personnalisé</li>
+                <li>Double nettoyage & Layering</li>
+                <li>Traitements de l'acné et de l'âge</li>
+                <li>Glow immédiat et durable</li>
+            </ul>
+            <a href="https://naow.app/estheticien-ne-soins-visage/service/soin-du-visage-hydraclean1h/rochefort/sandra.studiosacademy" class="btn" target="_blank">Découvrir les Soins Visage</a>
+        </div>
+    </section>
+
+    <!-- Service 3: Onglerie -->
+    <section class="service-row">
+        <div class="service-image">
+            <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
+                alt="Manucure et Ongles">
+        </div>
+        <div class="service-content">
+            <div class="service-number">03</div>
+            <h3>Onglerie & Regard</h3>
+            <p>Parce que vos mains sont votre carte de visite. Nous travaillons l'architecture de l'ongle avec
+                précision, en utilisant des produits respectueux pour un résultat fin, solide et élégant.</p>
+            <ul class="service-features">
+                <li>Manucure Russe (cuticules parfaites)</li>
+                <li>Renfort sur ongles naturels</li>
+                <li>Extensions Gel & Chablis</li>
+                <li>Rehaussement de cils</li>
+            </ul>
+            <a href="https://naow.app/estheticien-ne-soins-visage/service/groupon-vernis-semi-permanent-mains-et-pieds/rochefort/sandra.studiosacademy" class="btn" target="_blank">Carte des Prestations</a>
+        </div>
+    </section>
+
+    <!-- Service 4: Tatouage -->
+    <section class="service-row">
+        <div class="service-image">
+            <img src="https://images.unsplash.com/photo-1562962230-16e4623d36e6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
+                alt="Tatouage Fine Line">
+        </div>
+        <div class="service-content">
+            <div class="service-number">04</div>
+            <h3>Tatouage Fine Line</h3>
+            <p>L'art du tatouage tout en finesse. Spécialisée dans le "Fine Line" et l'ornemental, Sandra réalise des
+                pièces délicates qui subliment les courbes du corps comme des bijoux de peau éternels.</p>
+            <ul class="service-features">
+                <li>Traits fins et précis</li>
+                <li>Motifs floraux & ornementaux</li>
+                <li>Créations sur-mesure</li>
+                <li>Hygiène stricte et matériel stérile</li>
+            </ul>
+            <a href="https://naow.app/estheticien-ne-soins-visage/rochefort/sandra.studiosacademy" class="btn" target="_blank">Galerie & Infos</a>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="diagnostic-banner">
+        <h3>Besoin d'un conseil personnalisé ?</h3>
+        <p style="color: rgba(245, 240, 232, 0.8); max-width: 600px; margin: 0 auto 30px;">
+            Chaque peau et chaque besoin sont uniques. Contactez-nous pour échanger sur vos envies avant de réserver.
+        </p>
+        <a href="https://naow.app/estheticien-ne-soins-visage/rochefort/sandra.studiosacademy" class="btn-gold" target="_blank">Prendre Rendez-vous</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Studio S Academy</h4>
+                <p>Est. 2009</p>
+                <p>Expertise Beauté & Centre de Formation.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <p>67 Rue Pierre Loti<br>17300 Rochefort</p>
+                <p><a href="tel:+33626925725">06 26 92 57 25</a></p>
+                <p><a href="mailto:formations.studio.s@gmail.com">formations.studio.s@gmail.com</a></p>
+            </div>
+            <div class="footer-col">
+                <h4>Horaires</h4>
+                <ul>
+                    <li>Lun - Ven : 9h00 - 19h00</li>
+                    <li>Samedi : 9h00 - 17h00</li>
+                    <li>Dimanche : Fermé</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="l-institut.html">L'Institut</a></li>
+                    <li><a href="soin.html">Soins</a></li>
+                    <li><a href="https://naow.app/estheticien-ne-soins-visage/rochefort/sandra.studiosacademy" target="_blank">Réserver</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2024 Studio S Academy. Tous droits réservés.
+        </div>
+        <div class="copyright" style="margin-top: 10px; opacity: 0.8;">
+            Développé avec ❤ par <a href="https://naow.app" target="_blank" style="color: var(--color-gold);">Nowie</a> - logiciel de prise de rdv pour les indépendants
+        </div>
+    </footer>
+
+</body>
+
+</html>

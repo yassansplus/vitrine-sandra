@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Découvrez l'histoire du Studio S Academy à Rochefort. Fondé en 2009 par Sandra Léon, experte skincare et formatrice depuis 18 ans.">
+    <title>L'Institut & Sandra Léon | Studio S Academy Rochefort</title>
+
+    <!-- Polices (Correction : Ajout de Mrs Saint Delafield pour la signature) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Lato:wght@300;400;700&family=Mrs+Saint+Delafield&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* --- REPRISE DU CSS GLOBAL --- */
+        :root {
+            --color-bordeaux: #5C2A35;
+            --color-gold: #C9A86C;
+            --color-cream: #F5F0E8;
+            --color-white: #FFFFFF;
+            --color-text: #2c2c2c;
+
+            --font-heading: 'Cormorant Garamond', serif;
+            --font-body: 'Lato', sans-serif;
+            --font-signature: 'Mrs Saint Delafield', cursive;
+
+            --spacing-section: 80px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--color-text);
+            background-color: var(--color-white);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s ease;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Typo */
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: var(--color-bordeaux);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: #4a4a4a;
+        }
+
+        /* Navigation (Correction : Selecteur spécifique .main-nav pour éviter les conflits) */
+        .main-nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+            padding: 15px 5%;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            color: var(--color-bordeaux);
+            font-weight: 700;
+        }
+
+        .logo span {
+            color: var(--color-gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: var(--color-bordeaux);
+            position: relative;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0%;
+            height: 1px;
+            background-color: var(--color-gold);
+            transition: 0.3s;
+        }
+
+        .nav-cta {
+            background-color: var(--color-bordeaux);
+            color: white !important;
+            padding: 10px 20px;
+        }
+
+        .nav-cta:hover {
+            background-color: var(--color-gold);
+        }
+
+        /* --- SPECIFIQUE PAGE INSTITUT --- */
+
+        /* Hero Page Interne */
+        .page-header {
+            position: relative;
+            /* Correction : S'assure que ce header n'est PAS fixed */
+            background-color: var(--color-cream);
+            padding: 180px 5% 80px;
+            text-align: center;
+            margin-top: 0;
+        }
+
+        .page-header h1 {
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-family: var(--font-body);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--color-gold);
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        /* Section Histoire (Sandra) */
+        .story-section {
+            padding: var(--spacing-section) 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .story-img-container {
+            flex: 1;
+            position: relative;
+        }
+
+        .story-img {
+            border-radius: 4px;
+            /* Slight round */
+            box-shadow: 20px 20px 0px var(--color-cream);
+            /* Effet cadre décalé */
+        }
+
+        .story-content {
+            flex: 1;
+        }
+
+        .story-content h2 {
+            text-align: left;
+        }
+
+        .signature {
+            font-family: var(--font-signature);
+            /* Correction : Utilisation de la variable correcte */
+            font-size: 2.5rem;
+            /* Un peu plus grand pour la lisibilité */
+            color: var(--color-gold);
+            margin-top: 20px;
+        }
+
+        /* Section Le Lieu */
+        .place-section {
+            background-color: var(--color-bordeaux);
+            color: var(--color-cream);
+            padding: var(--spacing-section) 5%;
+            text-align: center;
+        }
+
+        .place-section h2 {
+            color: var(--color-white);
+        }
+
+        .place-section p {
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            height: 300px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Valeurs / Piliers */
+        .values-section {
+            padding: var(--spacing-section) 5%;
+            background-color: var(--color-white);
+        }
+
+        .values-container {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .value-card {
+            flex: 1;
+            text-align: center;
+            min-width: 250px;
+            padding: 30px;
+            border: 1px solid var(--color-cream);
+            transition: 0.3s;
+        }
+
+        .value-card:hover {
+            border-color: var(--color-gold);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .value-icon {
+            font-size: 2.5rem;
+            color: var(--color-gold);
+            margin-bottom: 20px;
+            font-family: var(--font-heading);
+        }
+
+        /* Footer (Identique) */
+        footer {
+            background-color: #4a212a;
+            color: var(--color-cream);
+            padding: 60px 5% 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 50px;
+        }
+
+        .footer-col h4 {
+            color: var(--color-gold);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col a {
+            color: var(--color-cream);
+            opacity: 0.8;
+        }
+
+        .footer-col a:hover {
+            color: var(--color-gold);
+            opacity: 1;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .story-section {
+                flex-direction: column;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            /* Simplified for code brevity, assume burger script is reused */
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header Navigation (Classe spécifique ajoutée) -->
+    <header class="main-nav">
+        <nav>
+            <div class="logo">STUDIO S <span>ACADEMY</span></div>
+            <!-- Note: Pour la prod, inclure le même script burger que l'index -->
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="l-institut.html" style="font-weight: 700;">L'Institut</a></li>
+                <li><a href="soin.html">Soins</a></li>
+                <li><a href="index.html#academy">Academy</a></li>
+                <li><a href="https://naow.app/estheticien-ne-soins-visage/rochefort/sandra.studiosacademy" class="nav-cta" target="_blank">Réserver</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Header Page (Titre et intro) -->
+    <header class="page-header">
+        <div class="subtitle">Depuis 2009</div>
+        <h1>L'Excellence & La Passion</h1>
+        <p style="max-width: 600px; margin: 0 auto;">
+            Découvrez l'histoire derrière le Studio S Academy, une adresse devenue incontournable à Rochefort.
+        </p>
+    </header>
+
+    <!-- Story Section -->
+    <section class="story-section">
+        <div class="story-img-container">
+            <!-- Placeholder Image: Portrait Pro de Sandra -->
+            <img src="https://images.unsplash.com/photo-1552693673-1bf958298935?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                alt="Sandra Léon Portrait" class="story-img">
+        </div>
+        <div class="story-content">
+            <h2>Sandra Léon, l'âme du Studio</h2>
+            <div class="subtitle" style="text-align: left; margin-bottom: 20px;">Fondatrice & Formatrice</div>
+            <p>
+                Tout a commencé en 2009. Animée par une vision exigeante de l'esthétique, j'ai ouvert mon premier espace
+                avec une conviction : la beauté n'est pas superficielle, c'est un art qui demande rigueur et
+                sensibilité.
+            </p>
+            <p>
+                Avec <strong>18 années d'expérience</strong> au compteur, je n'ai jamais cessé d'apprendre. De la
+                découverte des rituels de Head Spa japonais aux techniques pointues du skincare coréen (K-Beauty), je
+                voyage et me forme continuellement pour ramener à Rochefort le meilleur de l'esthétique mondiale.
+            </p>
+            <p>
+                Aujourd'hui, Studio S Academy est l'aboutissement de ce parcours : un lieu hybride où je prends soin de
+                mes clientes avec la même passion qu'au premier jour, tout en transmettant mon savoir-faire à la future
+                génération de professionnelles.
+            </p>
+            <p style="margin-top: 20px;">
+                <a href="soin.html" class="btn" style="margin-right: 10px;">Découvrir nos soins</a>
+                <a href="https://naow.app/estheticien-ne-soins-visage/rochefort/sandra.studiosacademy" class="btn" target="_blank">Prendre rendez-vous</a>
+            </p>
+            <div class="signature">Sandra</div>
+        </div>
+    </section>
+
+    <!-- The Place Section -->
+    <section class="place-section">
+        <h2>Un Sanctuaire au cœur de Rochefort</h2>
+        <p>Situé au 67 Rue Pierre Loti, notre institut a été pensé comme une bulle hors du temps. Couleurs douces,
+            ambiance feutrée, hygiène irréprochable : ici, le stress du quotidien reste à la porte.</p>
+
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
+                    alt="Cabine de soin">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1519823551278-64ac927ac4ad?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
+                    alt="Détail décoration">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
+                    alt="Espace Onglerie">
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values-section">
+        <h2 style="margin-bottom: 60px;">Nos Piliers</h2>
+
+        <div class="values-container">
+            <div class="value-card">
+                <div class="value-icon">01</div>
+                <h3>Expertise Avancée</h3>
+                <p>Nous ne suivons pas simplement les tendances, nous les maîtrisons. Nos <a href="soin.html" style="color: var(--color-gold);">protocoles de soins</a> (notamment
+                    K-Beauty) sont techniques et orientés résultats.</p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">02</div>
+                <h3>Hygiène Absolue</h3>
+                <p>Dans l'onglerie comme dans le tatouage ou les soins, la sécurité sanitaire est notre priorité
+                    non-négociable. Matériel stérile et protocoles stricts.</p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">03</div>
+                <h3>Transmission</h3>
+                <p>Via la S Academy, nous partageons nos secrets sans retenue. Nous croyons en une communauté
+                    d'esthéticiennes solidaires et hautement qualifiées.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Studio S Academy</h4>
+                <p>Est. 2009</p>
+                <p>Expertise Beauté & Centre de Formation.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <p>67 Rue Pierre Loti<br>17300 Rochefort</p>
+                <p><a href="tel:+33626925725">06 26 92 57 25</a></p>
+                <p><a href="mailto:formations.studio.s@gmail.com">formations.studio.s@gmail.com</a></p>
+            </div>
+            <div class="footer-col">
+                <h4>Horaires</h4>
+                <ul>
+                    <li>Lun - Ven : 9h00 - 19h00</li>
+                    <li>Samedi : 9h00 - 17h00</li>
+                    <li>Dimanche : Fermé</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="l-institut.html">L'Institut</a></li>
+                    <li><a href="soin.html">Soins</a></li>
+                    <li><a href="https://naow.app/estheticien-ne-soins-visage/rochefort/sandra.studiosacademy" target="_blank">Réserver</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2024 Studio S Academy. Tous droits réservés.
+        </div>
+        <div class="copyright" style="margin-top: 10px; opacity: 0.8;">
+            Développé avec ❤ par <a href="https://naow.app" target="_blank" style="color: var(--color-gold);">Nowie</a> - logiciel de prise de rdv pour les indépendants
+        </div>
+    </footer>
+
+</body>
+
+</html>

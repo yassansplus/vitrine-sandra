@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nails Effect | Prothésiste Ongulaire Corbas</title>
+    
+    <!-- Tailwind CSS (Via CDN pour la démo) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Configuration des couleurs personnalisées Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'terracotta': '#C5806B',
+                        'terracotta-dark': '#A05A48',
+                        'nude': '#F7F3EF',
+                        'nude-dark': '#E5DDD5',
+                        'gold': '#D4AF37',
+                        'dark-text': '#2D2D2D'
+                    },
+                    fontFamily: {
+                        'serif': ['Playfair Display', 'serif'],
+                        'sans': ['Montserrat', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'pampa': "url('https://images.unsplash.com/photo-1496664434942-ea8dd3fd4ea6?q=80&w=2070&auto=format&fit=crop')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* --- Styles Personnalisés & Animations --- */
+        
+        body {
+            background-color: #F7F3EF;
+            color: #2D2D2D;
+            overflow-x: hidden;
+        }
+
+        /* Effet Parallaxe fluide */
+        .parallax-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        /* Animation d'apparition au scroll (Reveal) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Retardateur pour les éléments en grille */
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+
+        /* Forme Arche pour les photos */
+        .arch-img {
+            border-radius: 300px 300px 20px 20px;
+        }
+
+        /* Animation flottante */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* Soulignement animé du menu */
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #C5806B;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F7F3EF;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #C5806B;
+            border-radius: 4px;
+        }
+
+        /* Loader */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: #F7F3EF;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease;
+        }
+        .loader-content {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #C5806B;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        /* Styles spécifiques pour les images de l'API */
+        .service-img-cover {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Loader -->
+    <div id="loader">
+        <div class="loader-content"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6 px-6 lg:px-12 bg-transparent">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="#" class="font-serif text-2xl lg:text-3xl font-bold tracking-widest text-terracotta z-50">
+                NAILS<span class="text-dark-text italic font-light">EFFECT</span>
+            </a>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#home" class="nav-link font-sans text-sm tracking-widest uppercase hover:text-terracotta transition">Accueil</a>
+                <a href="#about" class="nav-link font-sans text-sm tracking-widest uppercase hover:text-terracotta transition">L'Institut</a>
+                <a href="#services" class="nav-link font-sans text-sm tracking-widest uppercase hover:text-terracotta transition">Prestations</a>
+                <a href="#gallery" class="nav-link font-sans text-sm tracking-widest uppercase hover:text-terracotta transition">Réalisations</a>
+                <a href="https://naow.app/prothesiste-ongulaire/corbas/Nailseffect.69" target="_blank" class="px-6 py-2 border border-terracotta text-terracotta rounded-full hover:bg-terracotta hover:text-white transition duration-300 uppercase text-xs tracking-widest">
+                    Prendre RDV
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-2xl text-terracotta z-50">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 bg-nude flex flex-col items-center justify-center space-y-8 transform translate-x-full transition-transform duration-300 md:hidden h-screen z-40">
+            <a href="#home" class="mobile-link text-2xl font-serif text-dark-text">Accueil</a>
+            <a href="#about" class="mobile-link text-2xl font-serif text-dark-text">L'Institut</a>
+            <a href="#services" class="mobile-link text-2xl font-serif text-dark-text">Prestations</a>
+            <a href="#contact" class="mobile-link text-2xl font-serif text-dark-text">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image Parallax -->
+        <div class="absolute inset-0 z-0 bg-pampa parallax-bg opacity-90"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-white/30 to-nude/80 z-0"></div>
+
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto mt-20">
+            <p class="reveal font-sans text-terracotta tracking-[0.3em] uppercase text-sm mb-4">Prothésiste Ongulaire • Corbas (69)</p>
+            <h1 class="reveal delay-100 font-serif text-5xl md:text-7xl lg:text-8xl text-dark-text mb-6 leading-tight">
+                L'Art de <br><span class="italic text-terracotta">Sublimer</span> vos Mains
+            </h1>
+            <p class="reveal delay-200 font-sans text-gray-600 mb-10 max-w-xl mx-auto">
+                Offrez-vous un moment de détente et de beauté unique. Pose américaine, Gel, Nail Art sophistiqué dans un cadre cocooning.
+            </p>
+            <div class="reveal delay-300 flex flex-col md:flex-row gap-4 justify-center">
+                <a href="https://naow.app/prothesiste-ongulaire/corbas/Nailseffect.69" target="_blank" class="group relative px-8 py-4 bg-terracotta text-white font-sans uppercase tracking-widest text-xs overflow-hidden rounded-full shadow-lg hover:shadow-xl transition-all">
+                    <span class="absolute inset-0 w-full h-full bg-terracotta-dark transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300 ease-out"></span>
+                    <span class="relative z-10">Réserver maintenant</span>
+                </a>
+                <a href="#services" class="px-8 py-4 border border-terracotta text-terracotta font-sans uppercase tracking-widest text-xs rounded-full hover:bg-white transition-colors">
+                    Voir les tarifs
+                </a>
+            </div>
+        </div>
+        
+        <!-- Scroll Down Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-terracotta">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-nude relative overflow-hidden">
+        <!-- Déco arrière plan -->
+        <div class="absolute top-20 right-0 w-64 h-64 bg-terracotta opacity-5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-20 left-0 w-96 h-96 bg-gold opacity-5 rounded-full blur-3xl"></div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col lg:flex-row items-center gap-16">
+            <!-- Image Area -->
+            <div class="lg:w-1/2 relative reveal">
+                <div class="relative z-10">
+                    <!-- Photo fournie par l'utilisateur -->
+                    <img src="https://nailseffect.my.canva.site/_assets/media/2fea1ec1dcce790b432d75a45a67367d.jpg" 
+                         alt="Cindy Nails Effect" 
+                         class="w-full max-w-md mx-auto arch-img shadow-2xl object-cover h-[500px] border-4 border-white">
+                </div>
+                <!-- Decorative Circle Outline -->
+                <div class="absolute top-10 -left-10 w-full h-full border border-terracotta/30 arch-img z-0 hidden lg:block animate-float"></div>
+                <!-- Badge Experience -->
+                <div class="absolute bottom-10 -right-5 lg:right-10 bg-white p-6 rounded-full shadow-xl z-20 animate-float" style="animation-delay: 1s;">
+                    <p class="font-serif text-3xl text-terracotta text-center font-bold">3+</p>
+                    <p class="font-sans text-xs uppercase tracking-widest text-gray-500 text-center">Années<br>Exp.</p>
+                </div>
+            </div>
+
+            <!-- Text Area -->
+            <div class="lg:w-1/2 reveal delay-200">
+                <h4 class="font-sans text-terracotta uppercase tracking-widest text-sm mb-2">À propos de moi</h4>
+                <h2 class="font-serif text-4xl lg:text-5xl text-dark-text mb-8">Votre experte beauté <br> <span class="italic">passionnée</span></h2>
+                <div class="w-20 h-1 bg-terracotta mb-8"></div>
+                <p class="font-sans text-gray-600 leading-relaxed mb-6">
+                    Bienvenue ! Je suis <strong>Cindy</strong>. Passionnée par l'univers de la beauté depuis toujours, j'ai créé Nails Effect pour offrir bien plus qu'une simple manucure : une véritable expérience de soin.
+                </p>
+                <p class="font-sans text-gray-600 leading-relaxed mb-8">
+                    Je vous accueille dans mon studio privé à Corbas, un espace pensé pour votre confort. Spécialisée dans la pose américaine et le Nail Art moderne, je travaille avec minutie pour que vos mains deviennent votre plus bel accessoire.
+                </p>
+                <ul class="space-y-4 mb-8">
+                    <li class="flex items-center text-gray-700 font-sans text-sm">
+                        <i class="fas fa-check text-terracotta mr-4"></i> Produits de haute qualité
+                    </li>
+                    <li class="flex items-center text-gray-700 font-sans text-sm">
+                        <i class="fas fa-check text-terracotta mr-4"></i> Hygiène irréprochable
+                    </li>
+                    <li class="flex items-center text-gray-700 font-sans text-sm">
+                        <i class="fas fa-check text-terracotta mr-4"></i> Studio Privé Cocooning
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 bg-terracotta text-white relative">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="text-center mb-16 reveal">
+                <span class="inline-block py-1 px-3 border border-white/30 rounded-full text-xs uppercase tracking-widest mb-4">Mes Prestations</span>
+                <h2 class="font-serif text-4xl lg:text-5xl mb-4">Carte des Soins</h2>
+                <p class="font-sans text-white/80 max-w-2xl mx-auto">Des techniques modernes pour un résultat naturel ou sophistiqué, selon vos envies.</p>
+            </div>
+
+            <!-- Container Grid pour les services (ID ajouté pour l'injection JS) -->
+            <div id="services-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Contenu SEO par défaut (sera remplacé par JS si l'API répond) -->
+                
+                <!-- Card 1 -->
+                <div class="group bg-white/10 backdrop-blur-sm border border-white/20 p-8 rounded-2xl hover:bg-white hover:text-dark-text transition-all duration-500 cursor-pointer reveal hover:-translate-y-2">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-12 h-12 bg-white text-terracotta rounded-full flex items-center justify-center text-xl group-hover:bg-terracotta group-hover:text-white transition-colors">
+                            <i class="fas fa-hand-sparkles"></i>
+                        </div>
+                        <span class="font-serif text-xl font-bold group-hover:text-terracotta transition-colors">40€</span>
+                    </div>
+                    <h3 class="font-serif text-2xl mb-3">Mains Naturelles</h3>
+                    <p class="font-sans text-sm text-white/70 group-hover:text-gray-600 mb-4 transition-colors">
+                        Renfort (Gainage) sur ongles naturels. Idéal pour solidifier sans rallonger.
+                    </p>
+                </div>
+
+                <!-- Card 2 (Featured) -->
+                <div class="group bg-white text-terracotta p-8 rounded-2xl shadow-2xl transform scale-105 border-2 border-white relative reveal delay-100 z-10">
+                    <div class="absolute top-0 right-0 bg-gold text-white text-[10px] font-bold px-3 py-1 uppercase tracking-wider rounded-bl-lg">Populaire</div>
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-12 h-12 bg-terracotta text-white rounded-full flex items-center justify-center text-xl">
+                            <i class="fas fa-magic"></i>
+                        </div>
+                        <span class="font-serif text-xl font-bold">45€</span>
+                    </div>
+                    <h3 class="font-serif text-2xl mb-3 text-dark-text">Pose Américaine</h3>
+                    <p class="font-sans text-sm text-gray-600 mb-4">
+                        Technique Gel-X pour un rallongement complet, fin et naturel. Solide et rapide.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group bg-white/10 backdrop-blur-sm border border-white/20 p-8 rounded-2xl hover:bg-white hover:text-dark-text transition-all duration-500 cursor-pointer reveal delay-200 hover:-translate-y-2">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-12 h-12 bg-white text-terracotta rounded-full flex items-center justify-center text-xl group-hover:bg-terracotta group-hover:text-white transition-colors">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                        <span class="font-serif text-xl font-bold group-hover:text-terracotta transition-colors">+ 5€</span>
+                    </div>
+                    <h3 class="font-serif text-2xl mb-3">Nail Art</h3>
+                    <p class="font-sans text-sm text-white/70 group-hover:text-gray-600 mb-4 transition-colors">
+                        Personnalisez votre pose. French, Babyboomer, effets, dessins à main levée.
+                    </p>
+                </div>
+                
+                 <!-- Card 4 -->
+                 <div class="group bg-white/10 backdrop-blur-sm border border-white/20 p-8 rounded-2xl hover:bg-white hover:text-dark-text transition-all duration-500 cursor-pointer reveal hover:-translate-y-2">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-12 h-12 bg-white text-terracotta rounded-full flex items-center justify-center text-xl group-hover:bg-terracotta group-hover:text-white transition-colors">
+                            <i class="fas fa-shoe-prints"></i>
+                        </div>
+                        <span class="font-serif text-xl font-bold group-hover:text-terracotta transition-colors">35€</span>
+                    </div>
+                    <h3 class="font-serif text-2xl mb-3">Beauté des Pieds</h3>
+                    <p class="font-sans text-sm text-white/70 group-hover:text-gray-600 mb-4 transition-colors">
+                        Soin complet des ongles et pose de vernis semi-permanent.
+                    </p>
+                </div>
+
+                 <!-- Card 5 -->
+                 <div class="group bg-white/10 backdrop-blur-sm border border-white/20 p-8 rounded-2xl hover:bg-white hover:text-dark-text transition-all duration-500 cursor-pointer reveal delay-100 hover:-translate-y-2">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-12 h-12 bg-white text-terracotta rounded-full flex items-center justify-center text-xl group-hover:bg-terracotta group-hover:text-white transition-colors">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <span class="font-serif text-xl font-bold group-hover:text-terracotta transition-colors">45€</span>
+                    </div>
+                    <h3 class="font-serif text-2xl mb-3">Remplissage</h3>
+                    <p class="font-sans text-sm text-white/70 group-hover:text-gray-600 mb-4 transition-colors">
+                        Entretien de votre pose Gel ou Américaine (3-4 semaines max).
+                    </p>
+                </div>
+
+                 <!-- Card 6 -->
+                 <div class="group bg-white/10 backdrop-blur-sm border border-white/20 p-8 rounded-2xl hover:bg-white hover:text-dark-text transition-all duration-500 cursor-pointer reveal delay-200 hover:-translate-y-2">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-12 h-12 bg-white text-terracotta rounded-full flex items-center justify-center text-xl group-hover:bg-terracotta group-hover:text-white transition-colors">
+                            <i class="fas fa-recycle"></i>
+                        </div>
+                        <span class="font-serif text-xl font-bold group-hover:text-terracotta transition-colors">25€</span>
+                    </div>
+                    <h3 class="font-serif text-2xl mb-3">Dépose Complète</h3>
+                    <p class="font-sans text-sm text-white/70 group-hover:text-gray-600 mb-4 transition-colors">
+                        Retrait en douceur de la matière, soin des ongles et base protectrice.
+                    </p>
+                </div>
+
+            </div>
+            
+            <div class="mt-16 text-center reveal">
+                <p class="text-white/80 italic text-sm mb-6">* Les prix sont donnés à titre indicatif et peuvent varier selon le Nail Art demandé.</p>
+                <a href="https://naow.app/prothesiste-ongulaire/corbas/Nailseffect.69" target="_blank" class="inline-block px-10 py-4 bg-white text-terracotta font-sans uppercase tracking-widest text-xs rounded-full hover:bg-gold hover:text-white transition-colors shadow-lg">
+                    Prendre rendez-vous en ligne
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mini Gallery (Moodboard) -->
+    <section id="gallery" class="py-24 bg-nude">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-serif text-4xl text-dark-text">Inspirations</h2>
+                <p class="font-sans text-gray-500 mt-4 text-sm">Mes dernières réalisations</p>
+            </div>
+            <!-- Container ID ajouté pour injection JS -->
+            <div id="gallery-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px]">
+                
+                <!-- Contenu SEO par défaut -->
+                <div class="reveal row-span-2 rounded-2xl overflow-hidden relative group">
+                    <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" alt="Nail Art">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition"></div>
+                </div>
+                <div class="reveal rounded-2xl overflow-hidden relative group">
+                    <img src="https://images.unsplash.com/photo-1632516643720-e7f5d7d6ecc9?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" alt="Nail Polish">
+                </div>
+                <div class="reveal rounded-2xl overflow-hidden relative group delay-100">
+                    <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" alt="Mains soin">
+                </div>
+                <div class="reveal row-span-2 rounded-2xl overflow-hidden relative group delay-200">
+                    <img src="https://images.unsplash.com/photo-1596462502278-27bfdd403cc2?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" alt="Ambiance">
+                </div>
+                <div class="reveal col-span-2 rounded-2xl overflow-hidden relative group">
+                    <img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?q=80&w=1200&auto=format&fit=crop" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" alt="Pampas">
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40">
+                        <span class="text-white font-serif italic text-xl">Suivez-moi sur Instagram</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Map & Contact Section -->
+    <section id="contact" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col md:flex-row gap-12">
+            <!-- Contact Info -->
+            <div class="md:w-1/3 reveal">
+                <h4 class="font-sans text-terracotta uppercase tracking-widest text-sm mb-2">Contact</h4>
+                <h2 class="font-serif text-4xl text-dark-text mb-8">Venez me voir</h2>
+                
+                <div class="space-y-8">
+                    <div class="flex items-start">
+                        <div class="w-10 h-10 rounded-full bg-nude text-terracotta flex items-center justify-center shrink-0 mr-4">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h5 class="font-serif font-bold text-lg">Adresse</h5>
+                            <p class="font-sans text-gray-600 text-sm">2 Impasse Jean Gambs,<br>69960 Corbas</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start">
+                        <div class="w-10 h-10 rounded-full bg-nude text-terracotta flex items-center justify-center shrink-0 mr-4">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <h5 class="font-serif font-bold text-lg">Horaires</h5>
+                            <p class="font-sans text-gray-600 text-sm">Lun - Sam : 09h00 - 19h00<br><span class="text-terracotta text-xs italic">Sur rendez-vous uniquement</span></p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start">
+                        <div class="w-10 h-10 rounded-full bg-nude text-terracotta flex items-center justify-center shrink-0 mr-4">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h5 class="font-serif font-bold text-lg">Email</h5>
+                            <p class="font-sans text-gray-600 text-sm">nailseffect69@gmail.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="pt-6">
+                         <a href="https://naow.app/prothesiste-ongulaire/corbas/Nailseffect.69" target="_blank" class="w-full block text-center px-8 py-4 bg-terracotta text-white font-sans uppercase tracking-widest text-xs rounded-lg hover:bg-terracotta-dark transition-colors shadow-lg">
+                            Réserver un créneau
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map -->
+            <div class="md:w-2/3 h-[400px] md:h-auto rounded-3xl overflow-hidden shadow-2xl reveal delay-200 border-4 border-nude">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2787.568471485671!2d4.9096!3d45.6795!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47f4c4287c880373%3A0x0!2s2%20Impasse%20Jean%20Gambs%2C%2069960%20Corbas!5e0!3m2!1sfr!2sfr!4v1600000000000!5m2!1sfr!2sfr" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark-text text-white py-12 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-center md:text-left">
+                <a href="#" class="font-serif text-2xl font-bold tracking-widest text-terracotta">
+                    NAILS<span class="text-white italic font-light">EFFECT</span>
+                </a>
+                <p class="text-xs text-gray-400 mt-2">© 2024 Nails Effect. Tous droits réservés.</p>
+            </div>
+            
+            <div class="flex space-x-6">
+                <a href="#" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-terracotta hover:border-terracotta transition-all text-white">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-terracotta hover:border-terracotta transition-all text-white">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-terracotta hover:border-terracotta transition-all text-white">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- JAVASCRIPT LOGIC ---
+
+        // 1. Loader Disappear
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            loader.style.opacity = '0';
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 500);
+            
+            // Lancer la récupération des données
+            fetchData();
+        });
+
+        // 2. Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-nude/95', 'shadow-md', 'backdrop-blur-md', 'py-4');
+                navbar.classList.remove('bg-transparent', 'py-6');
+            } else {
+                navbar.classList.remove('bg-nude/95', 'shadow-md', 'backdrop-blur-md', 'py-4');
+                navbar.classList.add('bg-transparent', 'py-6');
+            }
+        });
+
+        // 3. Reveal Animation on Scroll (Intersection Observer)
+        function initReveal() {
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, {
+                threshold: 0.10, 
+                rootMargin: "0px 0px -50px 0px"
+            });
+
+            revealElements.forEach(el => revealObserver.observe(el));
+        }
+        
+        // Initial call for static elements
+        initReveal();
+
+        // 4. Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const links = document.querySelectorAll('.mobile-link');
+        let isMenuOpen = false;
+
+        btn.addEventListener('click', () => {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                menu.classList.remove('translate-x-full');
+                btn.innerHTML = '<i class="fas fa-times"></i>';
+                document.body.style.overflow = 'hidden'; 
+            } else {
+                menu.classList.add('translate-x-full');
+                btn.innerHTML = '<i class="fas fa-bars"></i>';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                isMenuOpen = false;
+                menu.classList.add('translate-x-full');
+                btn.innerHTML = '<i class="fas fa-bars"></i>';
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        // --- FETCH DATA FROM API ---
+        async function fetchData() {
+            try {
+                // Fetch Services
+                fetchServices();
+                // Fetch Inspiration Posts
+                fetchPosts();
+            } catch (e) {
+                console.error("Erreur générale lors du chargement des données", e);
+            }
+        }
+
+        async function fetchServices() {
+            try {
+                const response = await fetch('https://api.naow.app/services/provider/9de67603-b934-47cd-8bd7-24f5f78bc895');
+                const services = await response.json();
+                
+                if (services && services.length > 0) {
+                    const activeServices = services.filter(s => s.isActive);
+                    const container = document.getElementById('services-grid');
+                    
+                    if(activeServices.length > 0) {
+                        container.innerHTML = ''; // Nettoyer le contenu SEO par défaut
+                        
+                        activeServices.forEach((service, index) => {
+                            // Détermination de l'icône par défaut si pas d'image
+                            // ou on peut utiliser une logique basée sur le nom
+                            let icon = 'fa-star';
+                            if(service.name.toLowerCase().includes('main')) icon = 'fa-hand-sparkles';
+                            if(service.name.toLowerCase().includes('pied')) icon = 'fa-shoe-prints';
+                            if(service.name.toLowerCase().includes('pose')) icon = 'fa-magic';
+                            if(service.name.toLowerCase().includes('art')) icon = 'fa-paint-brush';
+                            if(service.name.toLowerCase().includes('dépose')) icon = 'fa-recycle';
+                            
+                            // Construction du HTML de la carte
+                            const delayClass = index % 3 === 0 ? '' : (index % 3 === 1 ? 'delay-100' : 'delay-200');
+                            
+                            // Formatage image
+                            let imageHtml = '';
+                            if (service.imageUrl) {
+                                imageHtml = `<img src="${service.imageUrl}" alt="${service.name}" class="service-img-cover group-hover:opacity-80 transition" />`;
+                            }
+
+                            // Style différent si c'est une carte "Featured" (arbitrairement la 2ème ou via un flag si existant)
+                            // Pour l'uniformité ici on garde le style "carte transparente" sauf au hover
+                            
+                            const card = document.createElement('div');
+                            card.className = `group bg-white/10 backdrop-blur-sm border border-white/20 p-8 rounded-2xl hover:bg-white hover:text-dark-text transition-all duration-500 cursor-pointer reveal ${delayClass} hover:-translate-y-2`;
+                            
+                            card.innerHTML = `
+                                ${imageHtml ? '' : 
+                                `<div class="flex justify-between items-start mb-6">
+                                    <div class="w-12 h-12 bg-white text-terracotta rounded-full flex items-center justify-center text-xl group-hover:bg-terracotta group-hover:text-white transition-colors">
+                                        <i class="fas ${icon}"></i>
+                                    </div>
+                                    <span class="font-serif text-xl font-bold group-hover:text-terracotta transition-colors">${parseFloat(service.price).toFixed(0)}€</span>
+                                </div>`
+                                }
+                                
+                                ${imageHtml ? 
+                                `<div class="flex justify-between items-center mb-4">
+                                    <h3 class="font-serif text-2xl">${service.name}</h3>
+                                    <span class="font-serif text-xl font-bold group-hover:text-terracotta transition-colors">${parseFloat(service.price).toFixed(0)}€</span>
+                                </div>` 
+                                : 
+                                `<h3 class="font-serif text-2xl mb-3">${service.name}</h3>`
+                                }
+                                
+                                <p class="font-sans text-sm text-white/70 group-hover:text-gray-600 mb-4 transition-colors line-clamp-3">
+                                    ${service.description || 'Soin professionnel pour sublimer vos ongles.'}
+                                </p>
+                            `;
+                            
+                            container.appendChild(card);
+                        });
+                        
+                        // Réinitialiser les animations pour les nouveaux éléments
+                        initReveal();
+                    }
+                }
+            } catch (error) {
+                console.error("Erreur fetch services:", error);
+                // On laisse le contenu par défaut si erreur
+            }
+        }
+
+        async function fetchPosts() {
+            try {
+                const response = await fetch('https://api.naow.app/posts/provider/9de67603-b934-47cd-8bd7-24f5f78bc895');
+                const posts = await response.json();
+                
+                if (posts && posts.length > 0) {
+                    const container = document.getElementById('gallery-grid');
+                    container.innerHTML = ''; // Nettoyer
+                    
+                    // On prend les 8 premiers posts max pour garder la grille propre
+                    posts.slice(0, 8).forEach((post, index) => {
+                        // Logique aléatoire mais déterministe pour la grille "Masonry style"
+                        // index 0: row-span-2
+                        // index 3: row-span-2
+                        // index 6: col-span-2
+                        let gridClass = "";
+                        if (index === 0 || index === 3) gridClass = "row-span-2";
+                        if (index === 4) gridClass = "col-span-2"; // Une image large au milieu
+                        
+                        const div = document.createElement('div');
+                        div.className = `reveal rounded-2xl overflow-hidden relative group ${gridClass}`;
+                        div.innerHTML = `
+                            <img src="${post.imageUrl}" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" alt="${post.description || 'Réalisation Nails Effect'}">
+                            <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition"></div>
+                            <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition duration-300">
+                                <p class="text-white text-xs font-sans">${post.description || ''}</p>
+                            </div>
+                        `;
+                        container.appendChild(div);
+                    });
+                     // Réinitialiser les animations
+                     initReveal();
+                }
+            } catch (error) {
+                console.error("Erreur fetch posts:", error);
+            }
+        }
+
+    </script>
+</body>
+</html>

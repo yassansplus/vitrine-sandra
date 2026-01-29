@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Studio S Academy à Rochefort : Institut de beauté expert (Head Spa, K-Beauty, Onglerie) et centre de formation esthétique fondé par Sandra Léon.">
+    <title>Studio S Academy | Soins Experts & Formation Esthétique à Rochefort</title>
+
+    <!-- Import des Polices Google Fonts (Cormorant Garamond, Lato & Mrs Saint Delafield) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Lato:wght@300;400;700&family=Mrs+Saint+Delafield&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* --- VARIABLES & RESET --- */
+        :root {
+            --color-bordeaux: #5C2A35;
+            --color-gold: #C9A86C;
+            --color-cream: #F5F0E8;
+            --color-white: #FFFFFF;
+            --color-text: #2c2c2c;
+
+            --font-heading: 'Cormorant Garamond', serif;
+            --font-body: 'Lato', sans-serif;
+
+            --spacing-section: 80px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--color-text);
+            background-color: var(--color-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s ease;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* --- TYPOGRAPHIE --- */
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            color: var(--color-bordeaux);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--color-gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            margin-bottom: 3rem;
+            font-weight: 700;
+        }
+
+        /* --- UI ELEMENTS --- */
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            font-family: var(--font-body);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary {
+            background-color: var(--color-bordeaux);
+            color: var(--color-white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-gold);
+            border-color: var(--color-gold);
+        }
+
+        .btn-outline {
+            border: 1px solid var(--color-gold);
+            color: var(--color-white);
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--color-gold);
+            color: var(--color-white);
+        }
+
+        .btn-gold {
+            background-color: var(--color-gold);
+            color: var(--color-white);
+        }
+
+        .btn-gold:hover {
+            background-color: var(--color-bordeaux);
+        }
+
+        /* --- NAVIGATION --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+            padding: 15px 5%;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            color: var(--color-bordeaux);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--color-gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: var(--color-bordeaux);
+            font-weight: 400;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0%;
+            height: 1px;
+            background-color: var(--color-gold);
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background-color: var(--color-bordeaux);
+            color: white !important;
+            padding: 10px 20px;
+            border-radius: 0;
+        }
+
+        .nav-cta:hover {
+            background-color: var(--color-gold);
+        }
+
+        /* Hamburger Menu (Mobile) */
+        .burger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background-color: var(--color-bordeaux);
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+
+        /* --- HERO SECTION --- */
+        #hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(92, 42, 53, 0.6)), url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        /* --- PHILOSOPHY --- */
+        #philosophy {
+            padding: var(--spacing-section) 5%;
+            background-color: var(--color-cream);
+            text-align: center;
+        }
+
+        .philosophy-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .philosophy-text {
+            font-size: 1.1rem;
+            color: var(--color-text);
+        }
+
+        /* --- SERVICES --- */
+        #services {
+            padding: var(--spacing-section) 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+            group: isolate;
+        }
+
+        .service-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .service-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(92, 42, 53, 0.9), transparent);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 30px;
+            opacity: 0.9;
+            transition: 0.3s;
+        }
+
+        .service-card:hover .service-img {
+            transform: scale(1.05);
+        }
+
+        .service-card h3 {
+            color: var(--color-white);
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .service-card p {
+            color: var(--color-cream);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .service-link {
+            color: var(--color-gold);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
+        /* --- ACADEMY --- */
+        #academy {
+            display: flex;
+            flex-wrap: wrap;
+            background-color: var(--color-cream);
+        }
+
+        .academy-image {
+            flex: 1;
+            min-width: 300px;
+            min-height: 500px;
+            background: url('https://images.unsplash.com/photo-1576426863848-c2185fc6e941?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+        }
+
+        .academy-content {
+            flex: 1;
+            padding: 80px 5%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-width: 300px;
+        }
+
+        .academy-list {
+            margin: 30px 0;
+        }
+
+        .academy-list li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            color: var(--color-bordeaux);
+        }
+
+        .academy-list li::before {
+            content: '✓';
+            color: var(--color-gold);
+            font-weight: bold;
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        /* --- FOUNDER --- */
+        #founder {
+            padding: var(--spacing-section) 5%;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .founder-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 30px;
+            border: 3px solid var(--color-gold);
+            padding: 5px;
+            /* space between border and image */
+        }
+
+        .quote {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-style: italic;
+            color: var(--color-bordeaux);
+            margin-bottom: 20px;
+        }
+
+        .signature {
+            font-family: 'Mrs Saint Delafield', cursive;
+            /* Fallback will use script if not loaded, sticking to Lato/Cormorant for simplicity mostly */
+            font-size: 1.5rem;
+            color: var(--color-gold);
+            margin-top: 10px;
+        }
+
+        /* --- REVIEWS --- */
+        #reviews {
+            background-color: var(--color-bordeaux);
+            color: var(--color-cream);
+            padding: var(--spacing-section) 5%;
+        }
+
+        .reviews-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .review-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            flex: 1;
+            min-width: 250px;
+            border: 1px solid rgba(201, 168, 108, 0.3);
+        }
+
+        .stars {
+            color: var(--color-gold);
+            margin-bottom: 15px;
+        }
+
+        .review-text {
+            font-style: italic;
+            margin-bottom: 15px;
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #4a212a;
+            /* Slightly darker Bordeaux */
+            color: var(--color-cream);
+            padding: 60px 5% 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            margin-bottom: 50px;
+        }
+
+        .footer-col h4 {
+            color: var(--color-gold);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col a {
+            color: var(--color-cream);
+            opacity: 0.8;
+        }
+
+        .footer-col a:hover {
+            color: var(--color-gold);
+            opacity: 1;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: absolute;
+                right: 0px;
+                height: 92vh;
+                top: 8vh;
+                background-color: var(--color-white);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 50%;
+                transform: translateX(100%);
+                transition: transform 0.5s ease-in;
+                box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+                justify-content: center;
+            }
+
+            .nav-links.nav-active {
+                transform: translateX(0%);
+            }
+
+            .burger {
+                display: block;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            #academy {
+                flex-direction: column;
+            }
+
+            .academy-image {
+                min-height: 300px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                STUDIO S <span>ACADEMY</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="l-institut.html">L'Institut</a></li>
+                <li><a href="soin.html">Soins</a></li>
+                <li><a href="#academy">Academy</a></li>
+                <li><a href="https://naow.app/estheticien-ne-soins-visage/rochefort/sandra.studiosacademy" class="nav-cta" target="_blank">Réserver</a></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+
+        <!-- Hero Section -->
+        <section id="hero">
+            <div class="hero-content">
+                <h1>L'Alliance de l'Expertise et de la Détente Absolue</h1>
+                <p>Studio S Academy : Votre destination beauté globale & centre de formation d'élite à Rochefort.</p>
+                <div class="hero-buttons">
+                    <a href="https://naow.app/estheticien-ne-soins-visage/rochefort/sandra.studiosacademy" class="btn btn-primary" target="_blank">Réserver un Soin</a>
+                    <a href="#academy" class="btn btn-outline">Découvrir les Formations</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Philosophy Section -->
+        <section id="philosophy" class="reveal">
+            <div class="philosophy-container">
+                <h2>Bien plus qu'un institut, une expérience</h2>
+                <div class="section-subtitle">Excellence • Passion • Rigueur</div>
+                <p class="philosophy-text">
+                    Fondé en 2009 par <a href="l-institut.html" style="color: var(--color-gold);">Sandra Léon</a>, le Studio S Academy incarne 18 années de passion pour l'esthétique.
+                    Situé au 67 Rue Pierre Loti, notre espace est conçu comme un sanctuaire où chaque détail compte.
+                    De la technicité des <a href="soin.html" style="color: var(--color-gold);">soins coréens</a> à l'art du tatouage fin, nous ne faisons aucun compromis entre
+                    efficacité et relaxation.
+                </p>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="reveal">
+            <h2>Nos Univers Beauté</h2>
+            <div class="section-subtitle">Une carte de soins complète</div>
+
+            <div class="services-grid">
+                <!-- Service 1 -->
+                <article class="service-card">
+                    <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                        alt="Head Spa Japonais" class="service-img">
+                    <div class="service-overlay">
+                        <h3>Head Spa</h3>
+                        <p>Lâchez prise avec nos rituels japonais exclusifs pour cuir chevelu et esprit.</p>
+                        <a href="https://naow.app/estheticien-ne-soins-visage/service/groupon-head-spa-decouverte/rochefort/sandra.studiosacademy" class="service-link" target="_blank">Découvrir le Head Spa →</a>
+                    </div>
+                </article>
+
+                <!-- Service 2 -->
+                <article class="service-card">
+                    <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                        alt="Soins Visage K-Beauty" class="service-img">
+                    <div class="service-overlay">
+                        <h3>Expert Skincare</h3>
+                        <p>La haute technologie coréenne (K-Beauty) pour une peau transformée.</p>
+                        <a href="https://naow.app/estheticien-ne-soins-visage/service/soin-du-visage-hydraclean1h/rochefort/sandra.studiosacademy" class="service-link" target="_blank">Mes soins visage →</a>
+                    </div>
+                </article>
+
+                <!-- Service 3 -->
+                <article class="service-card">
+                    <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                        alt="Onglerie" class="service-img">
+                    <div class="service-overlay">
+                        <h3>Onglerie & Regard</h3>
+                        <p>Précision et raffinement jusqu'au bout des ongles.</p>
+                        <a href="https://naow.app/estheticien-ne-soins-visage/service/groupon-vernis-semi-permanent-mains-et-pieds/rochefort/sandra.studiosacademy" class="service-link" target="_blank">Voir les prestations →</a>
+                    </div>
+                </article>
+
+                <!-- Service 4 -->
+                <article class="service-card">
+                    <img src="https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="Tatouage Fine Line" class="service-img">
+                    <div class="service-overlay">
+                        <h3>Tatouage Fine Line</h3>
+                        <p>L'art de la finesse et du détail pour sublimer votre peau.</p>
+                        <a href="https://naow.app/estheticien-ne-soins-visage/rochefort/sandra.studiosacademy" class="service-link" target="_blank">La galerie tatouage →</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Academy Section -->
+        <section id="academy" class="reveal">
+            <div class="academy-image"></div>
+            <div class="academy-content">
+                <h2>L'Academy</h2>
+                <div class="section-subtitle" style="text-align: left;">Devenez une experte reconnue</div>
+                <p>Vous rêvez de maîtriser les techniques les plus demandées ? Rejoignez la S Academy. Des formations en
+                    petit comité pour un apprentissage d'excellence, dispensées par Sandra Léon.</p>
+
+                <ul class="academy-list">
+                    <li>Formations Skincare & K-Beauty</li>
+                    <li>Suivi post-formation illimité</li>
+                    <li>Kits de démarrage professionnels inclus</li>
+                </ul>
+
+                <a href="mailto:formations.studio.s@gmail.com" class="btn btn-gold">Réserver une formation</a>
+            </div>
+        </section>
+
+        <!-- Founder Section -->
+        <section id="founder" class="reveal">
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
+                alt="Sandra Léon" class="founder-img">
+            <div class="quote">"Mon objectif est double : révéler votre beauté naturelle et transmettre mon savoir-faire
+                à la nouvelle génération d'esthéticiennes."</div>
+            <div class="signature">Sandra Léon</div>
+        </section>
+
+        <!-- Social Proof -->
+        <section id="reviews" class="reveal">
+            <h2 style="color: var(--color-cream);">Elles nous font confiance</h2>
+            <div class="section-subtitle" style="color: rgba(245, 240, 232, 0.7);">Avis Vérifiés</div>
+
+            <div class="reviews-container">
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"Un moment hors du temps au Head Spa. L'accueil est chaleureux et les soins
+                        d'une qualité rare à Rochefort."</p>
+                    <p>- Marie L.</p>
+                </div>
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"J'ai suivi la formation Skincare avec Sandra. Sa pédagogie et son expertise
+                        ont boosté mon activité !"</p>
+                    <p>- Sophie D., Esthéticienne</p>
+                </div>
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"Mes ongles n'ont jamais été aussi beaux. Le nail art est fin et élégant,
+                        exactement ce que je cherchais."</p>
+                    <p>- Camille R.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Studio S Academy</h4>
+                <p>Est. 2009</p>
+                <p>Expertise Beauté & Centre de Formation.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <p>67 Rue Pierre Loti<br>17300 Rochefort</p>
+                <p><a href="tel:+33626925725">06 26 92 57 25</a></p>
+                <p><a href="mailto:formations.studio.s@gmail.com">formations.studio.s@gmail.com</a></p>
+            </div>
+            <div class="footer-col">
+                <h4>Horaires</h4>
+                <ul>
+                    <li>Lun - Ven : 9h00 - 19h00</li>
+                    <li>Samedi : 9h00 - 17h00</li>
+                    <li>Dimanche : Fermé</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="l-institut.html">L'Institut</a></li>
+                    <li><a href="soin.html">Soins</a></li>
+                    <li><a href="https://naow.app/estheticien-ne-soins-visage/rochefort/sandra.studiosacademy" target="_blank">Réserver</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2024 Studio S Academy. Tous droits réservés.
+        </div>
+        <div class="copyright" style="margin-top: 10px; opacity: 0.8;">
+            Développé avec ❤ par <a href="https://naow.app" target="_blank" style="color: var(--color-gold);">Nowie</a> - logiciel de prise de rdv pour les indépendants
+        </div>
+    </footer>
+
+    <!-- JavaScript Pure -->
+    <script>
+        // Navigation Mobile
+        const burger = document.querySelector('.burger');
+        const nav = document.querySelector('.nav-links');
+        const navLinks = document.querySelectorAll('.nav-links li');
+
+        burger.addEventListener('click', () => {
+            // Toggle Nav
+            nav.classList.toggle('nav-active');
+
+            // Animation Burger
+            burger.classList.toggle('toggle');
+        });
+
+        // Fermer le menu mobile quand on clique sur un lien
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('nav-active');
+            });
+        });
+
+        // Animation au scroll (Intersection Observer)
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealCallback = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); // On arrête d'observer une fois animé
+                }
+            });
+        };
+
+        const revealOptions = {
+            threshold: 0.15 // Déclenche l'anim quand 15% de l'élément est visible
+        };
+
+        const observer = new IntersectionObserver(revealCallback, revealOptions);
+
+        revealElements.forEach(el => {
+            observer.observe(el);
+        });
+
+        // Changement style Header au scroll
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.style.boxShadow = "0 2px 10px rgba(0,0,0,0.1)";
+            } else {
+                header.style.boxShadow = "none";
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio S Academy | Expertise Skincare & Head Spa à Rochefort</title>
+    <meta name="description"
+        content="Studio S Academy : Centre de beauté, bien-être et formation à Rochefort. Head Spa, soins visage coréens, ongles et expertise skincare par Sandra Léon.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind CSS (via CDN for standalone file) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bordeaux: '#5C2A35',
+                        or: '#C9A86C',
+                        terracotta: '#B5764E',
+                        creme: '#F5F0E8',
+                        sauge: '#8A9A7E',
+                        taupe: '#8A7A6A',
+                        taupeDark: '#6A5A4A', // For better readability on light bg
+                    },
+                    fontFamily: {
+                        heading: ['"Cormorant Garamond"', 'serif'],
+                        body: ['"Lato"', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Utilities & Animations */
+        body {
+            background-color: #F5F0E8;
+            color: #5C2A35;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .font-heading-italic {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+        }
+
+        /* Separation Line Style */
+        .separator-diamond {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #C9A86C;
+            margin: 2rem 0;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .separator-diamond::before,
+        .separator-diamond::after {
+            content: "";
+            height: 1px;
+            width: 80px;
+            background-color: #C9A86C;
+            margin: 0 1rem;
+            opacity: 0.6;
+        }
+
+        /* Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Stagger delays */
+        .delay-100 {
+            transition-delay: 100ms;
+        }
+
+        .delay-200 {
+            transition-delay: 200ms;
+        }
+
+        .delay-300 {
+            transition-delay: 300ms;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #F5F0E8;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #5C2A35;
+            border-radius: 4px;
+        }
+
+        /* Image Masking for Soft Aesthetic */
+        .img-arch {
+            border-radius: 200px 200px 0 0;
+        }
+    </style>
+</head>
+
+<body class="overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300 bg-creme/90 backdrop-blur-md border-b border-bordeaux/10"
+        id="navbar">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="text-center group">
+                <div
+                    class="font-heading text-xl tracking-[0.2em] text-bordeaux font-bold group-hover:text-or transition-colors">
+                    STUDIO S</div>
+                <div class="h-[1px] w-full bg-or my-1 opacity-50"></div>
+                <div class="font-heading italic text-lg text-bordeaux/80">Academy</div>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div
+                class="hidden md:flex space-x-10 items-center font-body text-sm tracking-wide uppercase text-bordeaux/80">
+                <a href="l-institut.html" class="hover:text-or transition-colors">À propos</a>
+                <a href="soin.html" class="hover:text-or transition-colors">Prestations</a>
+                <a href="#valeurs" class="hover:text-or transition-colors">Valeurs</a>
+                <a href="https://naow.app/estheticien-ne-soins-visage/rochefort/sandra.studiosacademy" target="_blank"
+                    class="px-6 py-2 border border-bordeaux text-bordeaux hover:bg-bordeaux hover:text-creme transition-all duration-300 rounded-sm">
+                    Réserver
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-bordeaux" onclick="toggleMenu()">
+                <i data-lucide="menu" class="w-8 h-8"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu"
+            class="fixed inset-0 bg-creme z-40 transform translate-x-full transition-transform duration-300 flex flex-col items-center justify-center space-y-8 md:hidden">
+            <button class="absolute top-6 right-6 text-bordeaux" onclick="toggleMenu()">
+                <i data-lucide="x" class="w-8 h-8"></i>
+            </button>
+            <a href="l-institut.html" onclick="toggleMenu()" class="font-heading text-3xl text-bordeaux hover:text-or">À
+                propos</a>
+            <a href="soin.html" onclick="toggleMenu()"
+                class="font-heading text-3xl text-bordeaux hover:text-or">Prestations</a>
+            <a href="#valeurs" onclick="toggleMenu()"
+                class="font-heading text-3xl text-bordeaux hover:text-or">Valeurs</a>
+            <a href="https://naow.app/estheticien-ne-soins-visage/rochefort/sandra.studiosacademy" target="_blank" onclick="toggleMenu()" class="font-heading text-3xl text-or italic">Réserver</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+        <!-- Background Decor -->
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-bordeaux/5 -z-10 hidden md:block"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-or/10 rounded-full blur-3xl -z-10"></div>
+
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center w-full">
+            <div class="reveal">
+                <h2 class="font-body text-or uppercase tracking-widest text-sm mb-4 font-bold">Rochefort • France</h2>
+                <h1 class="font-heading font-bold text-5xl md:text-7xl leading-[1.1] text-bordeaux mb-6">
+                    Votre expertise <br>
+                    <span class="italic font-normal text-6xl md:text-8xl block mt-2">Skincare</span>
+                </h1>
+                <p
+                    class="font-body text-taupeDark text-lg md:text-xl leading-relaxed max-w-md mb-8 border-l-2 border-or pl-6">
+                    « Derrière chaque peau éclatante et moment détente, il y a votre esthéticienne passionnée à votre
+                    service. »
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="soin.html"
+                        class="bg-bordeaux text-creme px-8 py-3 font-body uppercase tracking-wider text-sm hover:bg-terracotta transition-colors text-center shadow-lg shadow-bordeaux/20">
+                        Nos Soins
+                    </a>
+                    <a href="l-institut.html"
+                        class="border border-bordeaux text-bordeaux px-8 py-3 font-body uppercase tracking-wider text-sm hover:bg-bordeaux/5 transition-colors text-center">
+                        L'Institut
+                    </a>
+                </div>
+            </div>
+
+            <div class="relative reveal delay-200 h-[60vh] md:h-[80vh]">
+                <!-- Main Hero Image -->
+                <div class="absolute inset-0 w-full h-full">
+                    <!-- Using Unsplash placeholder for Skincare/Spa -->
+                    <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=2070&auto=format&fit=crop"
+                        alt="Soin visage relaxant" class="w-full h-full object-cover img-arch shadow-2xl">
+                </div>
+                <!-- Floating Badge -->
+                <div
+                    class="absolute bottom-10 -left-6 bg-creme p-6 shadow-xl border border-bordeaux/10 max-w-xs hidden md:block">
+                    <p class="font-heading italic text-2xl text-bordeaux text-center">"Une expérience luxueuse et
+                        raffinée."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Separator -->
+    <div class="separator-diamond text-2xl">◆</div>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 md:py-32 bg-creme relative">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid md:grid-cols-12 gap-12 items-center">
+                <div class="md:col-span-5 reveal relative">
+                    <div class="absolute -top-4 -left-4 w-full h-full border border-or z-0"></div>
+                    <img src="https://images.unsplash.com/photo-1556760544-74068565f05c?q=80&w=1974&auto=format&fit=crop"
+                        alt="Sandra Léon"
+                        class="relative z-10 w-full h-auto shadow-lg aspect-[3/4] object-cover grayscale hover:grayscale-0 transition-all duration-700">
+                </div>
+                <div class="md:col-span-1 md:col-start-6 hidden md:block h-full w-[1px] bg-bordeaux/10 mx-auto"></div>
+                <div class="md:col-span-6 md:col-start-7 reveal delay-100">
+                    <span
+                        class="text-terracotta font-body uppercase tracking-widest text-xs font-bold mb-2 block">Fondatrice</span>
+                    <h2 class="font-heading text-4xl md:text-5xl text-bordeaux mb-6">Sandra Léon</h2>
+                    <p class="font-body text-taupeDark leading-relaxed mb-6">
+                        Fondé en 2009, <strong>Studio S Academy</strong> est né d'une vision : offrir à Rochefort un
+                        sanctuaire dédié à la beauté haute performance.
+                    </p>
+                    <p class="font-body text-taupeDark leading-relaxed mb-8">
+                        Experte skincare passionnée depuis plus de 18 ans, Sandra ne cesse de se former aux techniques
+                        les plus pointues, des rituels japonais ancestraux aux innovations coréennes. Ici, chaque geste
+                        est précis, chaque soin est un voyage.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-8 mt-8 border-t border-bordeaux/10 pt-8">
+                        <div>
+                            <span class="block font-heading text-4xl text-or mb-1">18+</span>
+                            <span class="text-sm font-body text-bordeaux uppercase tracking-wide">Années
+                                d'expertise</span>
+                        </div>
+                        <div>
+                            <span class="block font-heading text-4xl text-or mb-1">2009</span>
+                            <span class="text-sm font-body text-bordeaux uppercase tracking-wide">Création du
+                                studio</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services / Prestations -->
+    <section id="prestations" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-heading text-4xl md:text-6xl text-bordeaux mb-4">Nos Prestations</h2>
+                <div class="h-1 w-20 bg-or mx-auto"></div>
+                <p class="font-body text-taupe mt-4">Des protocoles d'exception pour des résultats visibles</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="group reveal delay-100 cursor-pointer">
+                    <div class="overflow-hidden relative h-80 mb-6">
+                        <div class="absolute inset-0 bg-bordeaux/20 group-hover:bg-transparent transition-all z-10">
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=2070&auto=format&fit=crop"
+                            class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                            alt="Head Spa">
+                    </div>
+                    <h3 class="font-heading text-2xl text-bordeaux mb-2 group-hover:text-terracotta transition-colors">
+                        Head Spa Japonais</h3>
+                    <p class="font-body text-taupeDark text-sm leading-relaxed mb-4">Rituels de relaxation profonde du
+                        cuir chevelu. Une évasion sensorielle unique.</p>
+                    <span
+                        class="text-xs font-bold uppercase tracking-widest text-or border-b border-or pb-1">Découvrir</span>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="group reveal delay-200 cursor-pointer">
+                    <div class="overflow-hidden relative h-80 mb-6">
+                        <div class="absolute inset-0 bg-bordeaux/20 group-hover:bg-transparent transition-all z-10">
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=2070&auto=format&fit=crop"
+                            class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                            alt="Soins Visage">
+                    </div>
+                    <h3 class="font-heading text-2xl text-bordeaux mb-2 group-hover:text-terracotta transition-colors">
+                        Expertise K-Beauty</h3>
+                    <p class="font-body text-taupeDark text-sm leading-relaxed mb-4">Soins visage coréens haute
+                        technologie. Glass skin et rajeunissement.</p>
+                    <span
+                        class="text-xs font-bold uppercase tracking-widest text-or border-b border-or pb-1">Découvrir</span>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="group reveal delay-300 cursor-pointer">
+                    <div class="overflow-hidden relative h-80 mb-6">
+                        <div class="absolute inset-0 bg-bordeaux/20 group-hover:bg-transparent transition-all z-10">
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1632345031435-8727f6897d53?q=80&w=2070&auto=format&fit=crop"
+                            class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                            alt="Ongles">
+                    </div>
+                    <h3 class="font-heading text-2xl text-bordeaux mb-2 group-hover:text-terracotta transition-colors">
+                        Onglerie & Art</h3>
+                    <p class="font-body text-taupeDark text-sm leading-relaxed mb-4">Gel X, Popits, VSP. Des créations
+                        soignées pour sublimer vos mains.</p>
+                    <span
+                        class="text-xs font-bold uppercase tracking-widest text-or border-b border-or pb-1">Découvrir</span>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="group reveal delay-100 cursor-pointer md:col-span-1">
+                    <div
+                        class="border border-bordeaux/20 h-full p-8 flex flex-col justify-center items-center text-center hover:border-or transition-colors bg-creme">
+                        <i data-lucide="pen-tool" class="w-10 h-10 text-bordeaux mb-4 stroke-[1px]"></i>
+                        <h3 class="font-heading text-2xl text-bordeaux mb-2">Tatouage Lignes Fines</h3>
+                        <p class="font-body text-taupeDark text-sm mb-4">La délicatesse du trait.</p>
+                    </div>
+                </div>
+
+                <!-- Service 5 -->
+                <div class="group reveal delay-200 cursor-pointer md:col-span-2">
+                    <div
+                        class="relative h-full min-h-[200px] overflow-hidden flex items-center justify-center p-8 bg-bordeaux text-creme">
+                        <div
+                            class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
+                        </div>
+                        <div class="relative z-10 text-center">
+                            <h3 class="font-heading text-3xl italic mb-2 text-or">Academy</h3>
+                            <h4 class="font-body uppercase tracking-widest text-sm mb-4 font-bold">Formations Certifiées
+                            </h4>
+                            <p class="font-body text-creme/80 max-w-md mx-auto mb-6 text-sm">Transmettre l'excellence.
+                                Formez-vous aux techniques de demain avec Sandra Léon.</p>
+                            <a href="mailto:<a href="mailto:formations.studio.s@gmail.com" class="hover:text-or">formations.studio.s@gmail.com</a>"
+                                class="border border-or text-or px-6 py-2 text-xs uppercase hover:bg-or hover:text-bordeaux transition-colors inline-block">Nous
+                                contacter</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section id="valeurs" class="py-20 bg-sauge/10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-bordeaux/10">
+                <!-- Value 1 -->
+                <div class="px-8 py-8 text-center reveal">
+                    <div class="text-4xl mb-4 text-bordeaux font-heading italic">01.</div>
+                    <h3 class="text-xl font-body font-bold text-bordeaux uppercase mb-3">Expertise</h3>
+                    <p class="text-taupeDark text-sm leading-relaxed">18 ans de passion et de perfectionnement continu
+                        pour maîtriser chaque geste.</p>
+                </div>
+                <!-- Value 2 -->
+                <div class="px-8 py-8 text-center reveal delay-100">
+                    <div class="text-4xl mb-4 text-bordeaux font-heading italic">02.</div>
+                    <h3 class="text-xl font-body font-bold text-bordeaux uppercase mb-3">Excellence</h3>
+                    <p class="text-taupeDark text-sm leading-relaxed">Une sélection rigoureuse de produits et de
+                        technologies pour des résultats visibles.</p>
+                </div>
+                <!-- Value 3 -->
+                <div class="px-8 py-8 text-center reveal delay-200">
+                    <div class="text-4xl mb-4 text-bordeaux font-heading italic">03.</div>
+                    <h3 class="text-xl font-body font-bold text-bordeaux uppercase mb-3">Sophistication</h3>
+                    <p class="text-taupeDark text-sm leading-relaxed">Bien plus qu'un soin, vivez une expérience
+                        luxueuse dans un cadre raffiné.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA / Contact Preview -->
+    <section id="contact" class="py-24 bg-bordeaux text-creme relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/noise.png')] opacity-5">
+        </div>
+        <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+            <h2 class="font-heading text-4xl md:text-6xl mb-6 italic">Révélez votre éclat</h2>
+            <p class="font-body text-lg text-creme/80 mb-10 max-w-xl mx-auto">
+                Prenez rendez-vous dès aujourd'hui pour une consultation personnalisée ou un soin signature au cœur de
+                Rochefort.
+            </p>
+            <div class="flex flex-col md:flex-row justify-center gap-6">
+                <a href="https://naow.app/estheticien-ne-soins-visage/rochefort/sandra.studiosacademy" target="_blank"
+                    class="bg-or text-bordeaux font-bold px-10 py-4 uppercase tracking-widest text-sm hover:bg-white transition-colors">
+                    Réserver en ligne
+                </a>
+                <a href="tel:0546000000"
+                    class="border border-creme text-creme px-10 py-4 uppercase tracking-widest text-sm hover:bg-creme hover:text-bordeaux transition-colors">
+                    05 46 00 00 00
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background-color: #4a212a; color: #F5F0E8; padding: 60px 5% 20px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto 50px;">
+            <div>
+                <h4 style="color: #C9A86C; margin-bottom: 20px; font-size: 1.3rem; font-family: 'Cormorant Garamond', serif;">Studio S Academy</h4>
+                <p style="color: #F5F0E8; margin-bottom: 10px;">Est. 2009</p>
+                <p style="color: #F5F0E8;">Expertise Beauté & Centre de Formation.</p>
+            </div>
+            <div>
+                <h4 style="color: #C9A86C; margin-bottom: 20px; font-size: 1.3rem; font-family: 'Cormorant Garamond', serif;">Contact</h4>
+                <p style="color: #F5F0E8; margin-bottom: 10px;">67 Rue Pierre Loti<br>17300 Rochefort</p>
+                <p style="margin-bottom: 10px;"><a href="tel:+33626925725" style="color: #F5F0E8;">06 26 92 57 25</a></p>
+                <p><a href="mailto:formations.studio.s@gmail.com" style="color: #F5F0E8;">formations.studio.s@gmail.com</a></p>
+            </div>
+            <div>
+                <h4 style="color: #C9A86C; margin-bottom: 20px; font-size: 1.3rem; font-family: 'Cormorant Garamond', serif;">Horaires</h4>
+                <p style="color: #F5F0E8; margin-bottom: 10px;">Lun - Ven : 9h00 - 19h00</p>
+                <p style="color: #F5F0E8; margin-bottom: 10px;">Samedi : 9h00 - 17h00</p>
+                <p style="color: #F5F0E8;">Dimanche : Fermé</p>
+            </div>
+            <div>
+                <h4 style="color: #C9A86C; margin-bottom: 20px; font-size: 1.3rem; font-family: 'Cormorant Garamond', serif;">Navigation</h4>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li style="margin-bottom: 10px;"><a href="index.html" style="color: #F5F0E8;">Accueil</a></li>
+                    <li style="margin-bottom: 10px;"><a href="l-institut.html" style="color: #F5F0E8;">L'Institut</a></li>
+                    <li style="margin-bottom: 10px;"><a href="soin.html" style="color: #F5F0E8;">Soins</a></li>
+                    <li style="margin-bottom: 10px;"><a href="https://naow.app/estheticien-ne-soins-visage/rochefort/sandra.studiosacademy" target="_blank" style="color: #F5F0E8;">Réserver</a></li>
+                </ul>
+            </div>
+        </div>
+        <div style="text-align: center; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 0.8rem; color: #F5F0E8; opacity: 0.6;">
+            &copy; 2024 Studio S Academy. Tous droits réservés.
+        </div>
+        <div style="text-align: center; margin-top: 10px; font-size: 0.8rem; color: #F5F0E8; opacity: 0.8;">
+            Développé avec ❤ par <a href="https://naow.app" target="_blank" style="color: #C9A86C;">Nowie</a> - logiciel de prise de rdv pour les indépendants
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Mobile Menu Logic
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const isOpen = !menu.classList.contains('translate-x-full');
+
+            if (isOpen) {
+                menu.classList.add('translate-x-full');
+            } else {
+                menu.classList.remove('translate-x-full');
+            }
+        }
+
+        // Intersection Observer for Reveal Animations
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target); // Only animate once
+                    }
+                });
+            }, observerOptions);
+
+            const revealElements = document.querySelectorAll('.reveal');
+            revealElements.forEach(el => observer.observe(el));
+        });
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.replace('bg-creme/90', 'bg-creme/95');
+            } else {
+                navbar.classList.remove('shadow-md');
+                navbar.classList.replace('bg-creme/95', 'bg-creme/90');
+            }
+        });
+    </script>
+</body>
+
+</html>

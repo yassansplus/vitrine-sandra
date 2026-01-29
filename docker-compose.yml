@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  web:
+    image: nginx:alpine
+    container_name: studio-s-academy
+    ports:
+      - "9000:80"
+    volumes:
+      - ./:/usr/share/nginx/html:ro
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+    restart: unless-stopped
+    networks:
+      - webnet
+
+networks:
+  webnet:
+    driver: bridge
