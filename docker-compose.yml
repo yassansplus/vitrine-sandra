@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   web:
     image: nginx:alpine
@@ -12,8 +10,10 @@ services:
       - ./nginx/conf.d:/etc/nginx/conf.d:ro
     restart: unless-stopped
     networks:
-      - webnet
+      - npm_network
+      - default
 
 networks:
-  webnet:
-    driver: bridge
+  npm_network:
+    external: true
+    name: npm_default  # Change si ton réseau NPM a un autre nom
