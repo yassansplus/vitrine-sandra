@@ -9,11 +9,3 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/conf.d:/etc/nginx/conf.d:ro
     restart: unless-stopped
-    networks:
-      - npm_network
-      - default
-
-networks:
-  npm_network:
-    external: true
-    name: npm_default  # Change si ton réseau NPM a un autre nom
